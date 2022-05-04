@@ -16,3 +16,7 @@ function fetchCountries(name) {
 }
 
 export { fetchCountries };
+
+
+// https://restcountries.com/v3.1/name/${name}
+// https://restcountries.com/v3.1/name/${name}?fields=name.official,capital,population
