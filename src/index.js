@@ -107,11 +107,10 @@ function renderCountryCard(country) {
 
 
 
+// ???? Як поставити вкінці списку мов крапку замість коми, як реалізувати це макетом
+// https://handlebarsjs.com/guide/builtin-helpers.html#if
 
 
-///css оформлення
-
-///зробити на класах?
 
 
 
@@ -122,3 +121,5 @@ function renderCountryCard(country) {
 ///notiflix
 ///рендеринг списку до 10 країн
 ///повернути debounce значення 300
+///css оформлення
+///об'єнати масив мов в один рядок

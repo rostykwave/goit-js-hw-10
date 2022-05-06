@@ -1,8 +1,12 @@
-    <img src="{{flags.svg}}" alt="" class="country__img" width="30px">
-    <h2 class="country__name">{{name}}</h2>
+<img src="{{flags.svg}}" alt="" class="country__img" width="30px">
+<h2 class="country__name">{{name}}</h2>
     
-    <p class="counry__specs">Capital: <span class="country__info">{{capital}}</span></p>
-    <p class="counry__specs">Population: <span class="country__info">{{population}}</span></p>
+<p class="counry__specs">Capital: <span class="country__info">{{capital}}</span></p>
+<p class="counry__specs">Population: <span class="country__info">{{population}}</span></p>
+<p class="counry__specs">Languages: 
     {{#each languages}}
-    <p class="counry__specs">Languages: <span class="country__info">{{name}}</span></p>
+    <span class="country__info">{{name}}</span>
     {{/each}}
+</p>
+
+
