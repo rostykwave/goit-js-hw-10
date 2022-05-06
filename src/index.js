@@ -52,10 +52,9 @@ function onSearch(e) {
 
 
 function renderCountryInfo(country) {
-  
-    //повідомлення про помилку (Catch не відловлює, бо бекенд поверне не порожній масив, а помилку зі статус кодом 404 - не знайдено)
+    //fetch не вважає 404 помилкою, тому необхідно явно відхилити проміс, щоб можна було зловити і обробити помилку.
     if (country.status === 404) {
-        return Notify.failure("Oops, there is no country with that name");
+        return country.reject('error');
     }
 
     if (country.length > 10) {
@@ -71,18 +70,15 @@ function renderCountryInfo(country) {
 }
 
 function onFetchError(error) {
-    alert('Введені даніневірні');
-    console.log('Введені даніневірні');
-
-    // console.log(error);
+    return Notify.failure("Oops, there is no country with that name");
 }
 
 
 
-////Catch не ловить помилку
+
 ///повернути debounce значення 300
 ///рендеринг списку до 10 країн
-///notiflix
+
 
 ///css оформлення
 
@@ -93,3 +89,5 @@ function onFetchError(error) {
 ////done///
 ////Знайти як дістати значення з об'єкту languages, коли для кожної країни клюя різний
 ///trim()
+////Catch не ловить помилку
+///notiflix
