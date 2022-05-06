@@ -6,6 +6,8 @@ import countryCard from './templates/country-card.hbs';
 import { fetchCountries } from "./js/fetchCountries";
 ///Отримання Ref
 import getRefs from './js/get-refs';
+///Notiflix
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
 
@@ -35,8 +37,8 @@ function onSearch(e) {
     //Очищуємо вміст інформації про країну
     refs.countryInfo.innerHTML = '';
     ///Забираємо інпут в змінну
-    const inputName = e.target.value;
-    console.log('input: ', inputName);
+    const inputName = e.target.value.trim();
+    console.log('input: ', inputName.length);
     ///якщо в інтупі щось є, тоді відправляємо запит
     if (inputName) {
         console.log('fetch');
@@ -50,6 +52,16 @@ function onSearch(e) {
 
 
 function renderCountryInfo(country) {
+  
+    //повідомлення про помилку (Catch не відловлює, бо бекенд поверне не порожній масив, а помилку зі статус кодом 404 - не знайдено)
+    if (country.status === 404) {
+        return Notify.failure("Oops, there is no country with that name");
+    }
+
+    if (country.length > 10) {
+        return Notify.info("Too many matches found. Please enter a more specific name.");
+    }
+
     ////масив всіх країн, які підходять інпут
     console.log(country);
     
@@ -71,10 +83,13 @@ function onFetchError(error) {
 ///повернути debounce значення 300
 ///рендеринг списку до 10 країн
 ///notiflix
-///trim()
+
 ///css оформлення
+
+///зробити на класах?
 
 
 
 ////done///
 ////Знайти як дістати значення з об'єкту languages, коли для кожної країни клюя різний
+///trim()
