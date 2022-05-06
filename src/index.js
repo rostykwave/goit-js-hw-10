@@ -1,7 +1,12 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
 // var debounce = require('lodash.debounce');
+
+///Шаблони
 import countryCard from './templates/country-card.hbs';
+import countryList from './templates/country-list.hbs';
+
+
 //праця з бекендом
 import { fetchCountries } from "./js/fetchCountries";
 ///Отримання Ref
@@ -12,7 +17,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
 ///Важливі змінні
-const DEBOUNCE_DELAY = 1000;
+const DEBOUNCE_DELAY = 300;
 
 ///References
 const refs = getRefs();
@@ -64,9 +69,16 @@ function renderCountryInfo(country) {
     ////масив всіх країн, які підходять інпут
     console.log(country);
     
-    ////рендеринг лише однієї(першої країни), коли інпут повністю співпадає з назною і є лише один, в іншому випадку - альтернативний рендеринг
-    const markup = countryCard(country[0]);
-     refs.countryInfo.innerHTML = markup;
+    ///Умова рендерингу списку чи однієї країни
+    if (country.length === 1) {
+        renderCountryCard(country);
+    } else {
+        renderCountryList(country);
+    }
+
+    
+
+    
 }
 
 function onFetchError(error) {
@@ -75,9 +87,32 @@ function onFetchError(error) {
 
 
 
+function renderCountryList(country) {
+    // console.log(country);
+    let markup = '';
 
-///повернути debounce значення 300
-///рендеринг списку до 10 країн
+    country.forEach((oneCountryFromList) => {
+        markup += countryList(oneCountryFromList);
+        //   console.log(markup);
+    });
+
+    //додавання всього макету одноразово в HTML ul
+    refs.countryList.innerHTML = markup;
+}
+
+
+
+
+function renderCountryCard(country) {
+    const markup = countryCard(country[0]);
+        refs.countryInfo.innerHTML = markup;
+}
+
+
+
+
+
+
 
 
 ///css оформлення
@@ -91,3 +126,5 @@ function onFetchError(error) {
 ///trim()
 ////Catch не ловить помилку
 ///notiflix
+///рендеринг списку до 10 країн
+///повернути debounce значення 300
