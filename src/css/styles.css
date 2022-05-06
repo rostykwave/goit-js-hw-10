@@ -25,8 +25,11 @@ img {
   height: auto;
 }
 
+/* <ul class="country-list"></ul> */
+
 .country-list{
   list-style: none;
+  padding: 0;
 
 }
 .country-list__item{
@@ -34,5 +37,20 @@ img {
 }
 
 .country-list__name{
-display: inline-block;
+display: inline;
+margin: 0;
+line-height: 1.7;
+}
+
+/* <div class="country-info"></div> */
+.country__name{
+  display: inline;
+}
+
+.counry__specs{
+  font-weight: 700;
+}
+
+.country__info{
+  font-weight: 400;
 }

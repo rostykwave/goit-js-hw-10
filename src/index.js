@@ -15,23 +15,16 @@ import getRefs from './js/get-refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
-
 ///Важливі змінні
 const DEBOUNCE_DELAY = 300;
-
 ///References
 const refs = getRefs();
 
 
+
 ////Main code
-// console.log(refs.searchInput);
 refs.searchInput.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
-
-
-
-// fetchCountries('ukraine');
-// fetchCountries('germany');
-// fetchCountries('italy').then(renderCountryInfo).catch(error => console.log(error));
+/////////////////////////////
 
 
 
@@ -39,7 +32,8 @@ refs.searchInput.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
 ////Functions
 function onSearch(e) {
     console.log('call onSearch');
-    //Очищуємо вміст інформації про країну
+    //Очищуємо вміст 
+    refs.countryList.innerHTML = '';
     refs.countryInfo.innerHTML = '';
     ///Забираємо інпут в змінну
     const inputName = e.target.value.trim();
