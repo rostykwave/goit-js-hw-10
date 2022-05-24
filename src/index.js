@@ -1,6 +1,5 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
-// var debounce = require('lodash.debounce');
 
 ///Шаблони
 import countryCard from './templates/country-card.hbs';
@@ -9,7 +8,7 @@ import countryList from './templates/country-list.hbs';
 
 //праця з бекендом
 import { fetchCountries } from "./js/fetchCountries";
-///Отримання Ref
+///Отримання Refs
 import getRefs from './js/get-refs';
 ///Notiflix
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -31,16 +30,14 @@ refs.searchInput.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
 
 ////Functions
 function onSearch(e) {
-    console.log('call onSearch');
     //Очищуємо вміст 
     refs.countryList.innerHTML = '';
     refs.countryInfo.innerHTML = '';
     ///Забираємо інпут в змінну
     const inputName = e.target.value.trim();
-    console.log('input: ', inputName.length);
+    
     ///якщо в інтупі щось є, тоді відправляємо запит
     if (inputName) {
-        console.log('fetch');
         fetchCountries(inputName)
             .then(renderCountryInfo)
             .catch(onFetchError)
@@ -56,11 +53,13 @@ function renderCountryInfo(country) {
         return country.reject('error');
     }
 
+    console.log('Countries count: ', country.length);
+
     if (country.length > 10) {
         return Notify.info("Too many matches found. Please enter a more specific name.");
     }
 
-    ////масив всіх країн, які підходять інпут
+    ////масив всіх країн, які підходять для рендеру
     console.log(country);
     
     ///Умова рендерингу списку чи однієї країни
@@ -69,10 +68,7 @@ function renderCountryInfo(country) {
     } else {
         renderCountryList(country);
     }
-
-    
-
-    
+  
 }
 
 function onFetchError(error) {
@@ -87,7 +83,6 @@ function renderCountryList(country) {
 
     country.forEach((oneCountryFromList) => {
         markup += countryList(oneCountryFromList);
-        //   console.log(markup);
     });
 
     //додавання всього макету одноразово в HTML ul
@@ -99,7 +94,7 @@ function renderCountryList(country) {
 
 function renderCountryCard(country) {
     const markup = countryCard(country[0]);
-        refs.countryInfo.innerHTML = markup;
+    refs.countryInfo.innerHTML = lastComaFix(markup);
 }
 
 
@@ -107,19 +102,9 @@ function renderCountryCard(country) {
 
 
 
-// ???? Як поставити вкінці списку мов крапку замість коми, як реалізувати це макетом
-// https://handlebarsjs.com/guide/builtin-helpers.html#if
-
-
-
-
-
-////done///
-////Знайти як дістати значення з об'єкту languages, коли для кожної країни клюя різний
-///trim()
-////Catch не ловить помилку
-///notiflix
-///рендеринг списку до 10 країн
-///повернути debounce значення 300
-///css оформлення
-///об'єнати масив мов в один рядок
+///Функція яка приймає текст макету і забирає зайву кому вкінці переліку мов, коли Switzerland наприклад має 4 мови
+function lastComaFix(propMarkup) {
+    if (propMarkup.endsWith(', </span></p>')) {
+        return propMarkup.replace(", </span></p>", "</span></p>");
+    }
+}

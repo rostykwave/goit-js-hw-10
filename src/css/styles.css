@@ -25,6 +25,10 @@ img {
   height: auto;
 }
 
+input:focus-visible{
+    outline: 1px solid rgb(52, 122, 235);
+}
+
 /* <ul class="country-list"></ul> */
 
 .country-list{

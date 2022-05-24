@@ -3,10 +3,4 @@
     
 <p class="counry__specs">Capital: <span class="country__info">{{capital}}</span></p>
 <p class="counry__specs">Population: <span class="country__info">{{population}}</span></p>
-<p class="counry__specs">Languages: 
-    {{#each languages}}
-    <span class="country__info">{{name}}</span>
-    {{/each}}
-</p>
-
-
+<p class="counry__specs">Languages: <span class="country__info">{{#each languages}}{{name}}, {{/each}}</span></p>
